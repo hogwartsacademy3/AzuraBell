@@ -40,6 +40,13 @@
             font-family: 'Courier Prime', monospace, sans-serif;
         }
 
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 5;
+        }
+
         /* --- 3D BOOK ENGINE --- */
         #book-wrapper {
             perspective: 1600px;
@@ -218,7 +225,6 @@
         #lightbox.active { opacity: 1; pointer-events: auto; }
         #lightbox img { max-width: 88%; max-height: 85%; border: 8px solid white; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        /* General Popup Modal for Overflow / Long Content */
         #popup-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
@@ -236,7 +242,6 @@
             border: 1px solid rgba(0,0,0,0.1);
         }
         
-        /* Navigation Annotations */
         .nav-arrow {
             position: absolute; bottom: 12px;
             font-size: 1.1rem; cursor: pointer; z-index: 50;
@@ -247,24 +252,16 @@
         .nav-next { right: 16px; }
         .nav-back { left: 16px; }
 
-        /* Safe Content Area */
         .safe-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-sizing: border-box;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            position: relative; box-sizing: border-box;
             padding: 24px;
         }
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 850px) {
-            #book {
-                width: 200vw;
-                height: 86vh;
-                max-height: 700px;
-            }
+            #book { width: 200vw; height: 86vh; max-height: 700px; }
             .face.front { border-radius: 12px; border-left: none; box-shadow: none; }
             .face.back { border-radius: 12px; border-right: none; box-shadow: none; }
             .spine-shadow-front, .spine-shadow-back { display: none; }
@@ -297,9 +294,14 @@
             <div class="face front" style="background-color: var(--paper-bg);">
                 <div class="spine-shadow-front"></div>
                 <div class="safe-content items-center justify-center">
-                    <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] handwritten text-center text-blue-900 mb-3">A SMALL LETTER</h2>
                     
-                    <div class="paper-scrap w-full max-w-[340px] p-5 cursor-pointer shadow-sm relative my-auto" onclick="openLetterPopup()">
+                    <!-- Doodles -->
+                    <svg class="doodle top-[10%] left-[10%] w-12 h-12 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <div class="doodle bottom-[15%] right-[10%] handwritten text-2xl text-gray-400 rotate-12">read me!</div>
+                    
+                    <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] handwritten text-center text-blue-900 mb-3 z-10">A SMALL LETTER</h2>
+                    
+                    <div class="paper-scrap w-full max-w-[340px] p-5 cursor-pointer shadow-sm relative my-auto z-10" onclick="openLetterPopup()">
                         <div class="tape top-0 left-1/2 -translate-x-1/2 -mt-3 w-16"></div>
                         <div class="text-[11px] text-blue-500 font-bold mb-2 text-center uppercase tracking-widest border-b border-blue-100 pb-1">To Azura (Tap to read)</div>
                         
@@ -321,19 +323,24 @@
                 <div class="spine-shadow-back"></div>
                 <div class="safe-content items-center justify-center text-center">
                     
-                    <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] handwritten text-blue-900 mb-1">that's basically it.</h2>
-                    <p class="text-xs text-gray-500 mb-4 font-medium">An unofficial collection of Azura Bell.</p>
+                    <!-- Doodles -->
+                    <div class="doodle top-[20%] left-[20%] handwritten text-3xl text-pink-300 -rotate-12">★</div>
+                    <div class="doodle bottom-[30%] left-[15%] handwritten text-xl text-blue-300 rotate-6">bye bye!</div>
+                    <svg class="doodle top-[30%] right-[15%] w-8 h-8 text-yellow-400 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+
+                    <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] handwritten text-blue-900 mb-1 z-10">that's basically it.</h2>
+                    <p class="text-xs text-gray-500 mb-4 font-medium z-10">An unofficial collection of Azura Bell.</p>
 
                     <!-- Final Image -->
-                    <div class="polaroid transform rotate-2 w-[42%] max-w-[150px] mb-4 cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                    <div class="polaroid transform rotate-2 w-[42%] max-w-[150px] mb-4 cursor-pointer z-20" onclick="openLightbox(this.querySelector('img').src)">
                         <div class="tape -top-3 left-1/2 transform -translate-x-1/2 rotate-1" style="width: 50px; background: rgba(255, 182, 193, 0.6);"></div>
                         <img src="https://i.pinimg.com/736x/76/70/cf/7670cf472586f9bdf95de8579e53c78d.jpg" alt="Azura final" onerror="this.src='https://placehold.co/400x500/e2e8f0/64748b?text=Photo';">
                         <div class="handwritten text-center mt-2 text-base">End of file.</div>
                     </div>
 
                     <!-- Hidden Star Easter Egg -->
-                    <div class="absolute bottom-14 right-10 cursor-pointer group" onclick="document.getElementById('bonus-fact').style.display='block'; this.style.opacity='0'">
-                        <span class="text-2xl text-blue-300 group-hover:text-yellow-400 transition-colors">✦</span>
+                    <div class="absolute bottom-14 right-10 cursor-pointer group z-30" onclick="document.getElementById('bonus-fact').style.display='block'; this.style.opacity='0'">
+                        <span class="text-3xl text-blue-300 group-hover:text-yellow-400 transition-colors">✦</span>
                     </div>
 
                     <!-- Hidden Fact Card -->
@@ -353,36 +360,49 @@
         <!-- SHEET 3: Bias (Front) & Lore (Back)        -->
         <!-- ========================================== -->
         <div class="paper" id="p3">
-            <!-- P3 FRONT: NEW DEDICATED BIAS PAGE (SOOBIN) -->
+            <!-- P3 FRONT: DEDICATED BIAS PAGE (SOOBIN) -->
             <div class="face front" style="background-color: var(--paper-bg);">
                 <div class="spine-shadow-front"></div>
                 <div class="safe-content items-center justify-between py-5">
-                    <div class="text-center w-kfull">
+                    
+                    <!-- Background Doodles to make it crowded -->
+                    <div class="doodle top-[15%] left-[8%] handwritten text-2xl text-pink-300 -rotate-12">cute!</div>
+                    <div class="doodle bottom-[25%] right-[10%] handwritten text-xl text-blue-400 rotate-12">omg</div>
+                    <svg class="doodle top-[35%] left-[45%] w-8 h-8 text-red-300 opacity-40 rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <svg class="doodle bottom-[45%] right-[35%] w-6 h-6 text-pink-400 opacity-50 -rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+
+                    <div class="text-center w-full z-10">
                         <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-blue-900 mb-0">BIAS</h2>
                         <div class="typewriter text-[11px] text-gray-500 tracking-widest">SOOBIN</div>
                     </div>
                     
-                    <!-- Dedicated Soobin Container -->
+                    <!-- Dedicated Soobin Container (More crowded now) -->
                     <div class="relative w-full flex-1 flex items-center justify-center my-2">
                         <!-- Soobin Photo 1 -->
-                        <div class="polaroid absolute top-[4%] left-[8%] w-[44%] max-w-[160px] transform -rotate-4 z-10" onclick="openLightbox(this.querySelector('img').src)">
+                        <div class="polaroid absolute top-[2%] left-[4%] w-[42%] max-w-[150px] transform -rotate-6 z-10" onclick="openLightbox(this.querySelector('img').src)">
                             <div class="tape -top-2 left-1/2 -translate-x-1/2 rotate-2 w-10"></div>
                             <img src="https://i.pinimg.com/736x/53/59/7f/53597f5662d899d8a321e540510d0a07.jpg" alt="Soobin 1">
                         </div>
                         
                         <!-- Soobin Photo 2 -->
-                        <div class="polaroid absolute bottom-[14%] right-[8%] w-[44%] max-w-[160px] transform rotate-3 z-20" onclick="openLightbox(this.querySelector('img').src)">
+                        <div class="polaroid absolute bottom-[18%] right-[4%] w-[42%] max-w-[150px] transform rotate-3 z-20" onclick="openLightbox(this.querySelector('img').src)">
                             <div class="absolute -top-3 right-6 w-3 h-8 border-2 border-gray-400 rounded-full rotate-[15deg] z-30"></div>
                             <img src="https://i.pinimg.com/736x/19/16/6c/19166c8e7e60b1736388cac333f98956.jpg" alt="Soobin 2">
                         </div>
 
+                        <!-- Soobin Photo 3 (New added for crowded feel) -->
+                        <div class="polaroid absolute top-[35%] left-[50%] w-[38%] max-w-[130px] transform rotate-12 z-15" onclick="openLightbox(this.querySelector('img').src)">
+                            <div class="tape -top-2 left-2 -rotate-6 w-8" style="background: rgba(255, 182, 193, 0.6);"></div>
+                            <img src="https://i.pinimg.com/564x/c7/2b/26/c72b260dc9876211a7ce3c96c4cb713f.jpg" alt="Soobin 3" onerror="this.src='https://placehold.co/300x300/e2e8f0/64748b?text=Soobin';">
+                        </div>
+
                         <!-- Caption Note -->
-                        <div class="paper-scrap absolute bottom-[2%] left-1/2 -translate-x-1/2 w-[75%] max-w-[200px] transform rotate-1 text-center shadow-sm z-30 py-1 px-2">
+                        <div class="paper-scrap absolute bottom-[2%] left-1/2 -translate-x-1/2 w-[80%] max-w-[220px] transform -rotate-1 text-center shadow-sm z-30 py-2 px-3">
                             <div class="handwritten text-lg text-gray-800">"yeah, apparently it's Soobin."</div>
                         </div>
                         
-                        <div class="handwritten text-xl absolute top-[2%] right-[12%] text-blue-300 opacity-70">✧</div>
-                        <div class="handwritten text-xl absolute bottom-[8%] left-[10%] text-pink-300 opacity-70">★</div>
+                        <div class="handwritten text-2xl absolute top-[2%] right-[10%] text-blue-300 opacity-80">✧</div>
+                        <div class="handwritten text-2xl absolute bottom-[10%] left-[8%] text-pink-300 opacity-80">★</div>
                     </div>
                     
                     <div class="nav-arrow nav-back handwritten text-blue-700" onclick="prevPage(event)">← BACK</div>
@@ -393,13 +413,19 @@
             <!-- P3 BACK: RANDOM LORE -->
             <div class="face back" style="background-color: var(--paper-bg);">
                 <div class="spine-shadow-back"></div>
-                <div class="safe-content items-center justify-center">
-                    <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-center mb-6 text-blue-900 w-full">RANDOM AZURA LORE</h2>
+                <div class="safe-content items-center justify-center relative">
+                    
+                    <!-- Extra Lore Doodles to fill space -->
+                    <div class="doodle top-[15%] right-[10%] handwritten text-xl text-blue-400 rotate-12">top secret!</div>
+                    <div class="doodle bottom-[20%] left-[15%] handwritten text-2xl text-gray-400 -rotate-6">?!!</div>
+                    <svg class="doodle top-[25%] left-[20%] w-10 h-10 text-yellow-300 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+
+                    <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-center mb-6 text-blue-900 w-full z-10">RANDOM AZURA LORE</h2>
                     
                     <div class="tape top-4 left-1/2 transform -translate-x-1/2 -rotate-2 w-[100px] absolute z-10"></div>
 
                     <!-- Interactive Lore Note -->
-                    <div class="sticky-note blue w-[75%] max-w-[250px] p-5 text-center fold-reveal shadow-md my-auto relative" onclick="openLorePopup()">
+                    <div class="sticky-note blue w-[75%] max-w-[250px] p-5 text-center shadow-md my-auto relative z-20" onclick="openLorePopup()">
                         <div class="font-bold text-xs mb-2 text-blue-900 border-b border-blue-200 pb-1">03:00 AM INCIDENT</div>
                         
                         <svg class="mx-auto w-9 h-9 my-2 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -408,6 +434,12 @@
                         </svg>
                         
                         <div class="handwritten text-base text-gray-700 mt-1">(tap to read incident)</div>
+                    </div>
+
+                    <!-- Additional small note to make it crowded -->
+                    <div class="paper-scrap w-[50%] max-w-[150px] absolute bottom-[25%] right-[10%] transform rotate-6 z-10 p-2 shadow-sm text-center">
+                        <div class="tape -top-2 left-1/2 -translate-x-1/2 -rotate-3 w-8" style="background: rgba(255, 182, 193, 0.6);"></div>
+                        <div class="handwritten text-sm text-gray-700">"ask her about this!"</div>
                     </div>
 
                     <div class="nav-arrow nav-back handwritten text-blue-700" onclick="prevPage(event)">← BACK</div>
@@ -424,10 +456,16 @@
             <div class="face front" style="background-color: var(--paper-bg);">
                 <div class="spine-shadow-front"></div>
                 <div class="safe-content items-center justify-between py-4">
+                    
+                    <!-- Doodles around photos -->
+                    <div class="doodle top-[12%] right-[20%] handwritten text-xl text-pink-400 rotate-12">so pretty! ✧</div>
+                    <svg class="doodle bottom-[30%] right-[10%] w-8 h-8 text-pink-300 opacity-60 -rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <svg class="doodle top-[40%] left-[8%] w-6 h-6 text-blue-300 opacity-60 rotate-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+
                     <h2 class="text-[clamp(1.5rem,4vw,2.1rem)] handwritten text-blue-900 z-10 relative text-center mb-1">AZURA, VISUALLY</h2>
                     
                     <!-- Responsive Collage Container -->
-                    <div class="relative flex-1 w-full my-1">
+                    <div class="relative flex-1 w-full my-1 z-10">
                         <!-- Image 1 -->
                         <div class="polaroid absolute top-[2%] left-[4%] w-[34%]" onclick="openLightbox(this.querySelector('img').src)">
                             <div class="tape -top-2 -left-2 rotate-12 w-8"></div>
@@ -463,22 +501,28 @@
                 </div>
             </div>
 
-            <!-- P2 BACK: THINGS SHE LIKES (REVISED: Soobin removed, items enlarged) -->
+            <!-- P2 BACK: FAVORITE SINGERS (REVISED: better fitting TS image, title change) -->
             <div class="face back" style="background-color: var(--paper-bg);">
                 <div class="spine-shadow-back"></div>
                 <div class="safe-content items-center justify-between py-5">
-                    <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-center text-blue-900 mb-2">THINGS SHE LIKES</h2>
+                    
+                    <!-- Music Doodles -->
+                    <div class="doodle top-[10%] left-[15%] handwritten text-2xl text-blue-400 -rotate-12">♫</div>
+                    <div class="doodle bottom-[20%] right-[10%] handwritten text-3xl text-pink-300 rotate-12">♪</div>
+                    <div class="doodle top-[45%] right-[5%] handwritten text-xl text-gray-400 rotate-6">vibes~</div>
 
-                    <div class="flex flex-col h-[78%] items-center justify-around w-full max-w-[280px] my-auto">
+                    <h2 class="text-[clamp(1.4rem,3.5vw,2rem)] handwritten text-center text-blue-900 mb-2 z-10 w-full leading-tight">HER FAVORITE SINGERS</h2>
+
+                    <div class="flex flex-col h-[80%] items-center justify-around w-full max-w-[280px] my-auto z-10">
                         <!-- Feby Putri Card -->
                         <div class="interactive-card w-full h-[47%]" onclick="this.classList.toggle('revealed')">
                             <div class="card-inner">
                                 <div class="card-front flex-col bg-white shadow-md border border-gray-100 p-3 transform -rotate-1 h-full w-full justify-between">
                                     <div class="tape -top-2 left-4 rotate-2" style="width: 45px; background: rgba(138, 182, 235, 0.4);"></div>
-                                    <div class="w-full h-[66%] overflow-hidden rounded bg-gray-100">
-                                        <img src="https://cdn.antaranews.com/cache/1200x800/2025/06/09/IMG_20250609_171327.jpg" alt="Feby Putri" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Music';">
+                                    <div class="w-full h-[68%] overflow-hidden rounded bg-gray-100 flex items-center justify-center">
+                                        <img src="https://cdn.antaranews.com/cache/1200x800/2025/06/09/IMG_20250609_171327.jpg" alt="Feby Putri" class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Music';">
                                     </div>
-                                    <div class="font-bold text-xs tracking-wide text-center w-full">FEBY PUTRI</div>
+                                    <div class="font-bold text-xs tracking-wide text-center w-full mt-1">FEBY PUTRI</div>
                                     <div class="text-[9px] text-gray-500 uppercase text-center w-full">Indonesian favorite</div>
                                 </div>
                                 <div class="card-back flex items-center justify-center p-4">
@@ -487,15 +531,16 @@
                             </div>
                         </div>
 
-                        <!-- Taylor Swift Card -->
+                        <!-- Taylor Swift Card (Fixed Image fitting) -->
                         <div class="interactive-card w-full h-[47%]" onclick="this.classList.toggle('revealed')">
                             <div class="card-inner">
                                 <div class="card-front flex-col bg-white shadow-md border border-gray-100 p-3 transform rotate-1 h-full w-full justify-between">
                                     <div class="tape -top-2 right-4 -rotate-3" style="width: 45px; background: rgba(138, 182, 235, 0.4);"></div>
-                                    <div class="w-full h-[66%] overflow-hidden rounded bg-gray-100">
-                                        <img src="https://m.media-amazon.com/images/M/MV5BYWYwYzYzMjUtNWE0MS00NmJlLTljNGMtNzliYjg5NzQ1OWY5XkEyXkFqcGc@.V1.jpg" alt="Taylor Swift" class="w-full h-full object-cover object-top" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Music';">
+                                    <div class="w-full h-[68%] overflow-hidden rounded bg-gray-100 flex items-center justify-center">
+                                        <!-- Using object-cover and object-center to ensure the face isn't cropped weirdly, or fallback to contain if image is tricky -->
+                                        <img src="https://m.media-amazon.com/images/M/MV5BYWYwYzYzMjUtNWE0MS00NmJlLTljNGMtNzliYjg5NzQ1OWY5XkEyXkFqcGc@.V1.jpg" alt="Taylor Swift" class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Music';">
                                     </div>
-                                    <div class="font-bold text-xs tracking-wide text-center w-full">TAYLOR SWIFT</div>
+                                    <div class="font-bold text-xs tracking-wide text-center w-full mt-1">TAYLOR SWIFT</div>
                                     <div class="text-[9px] text-gray-500 uppercase text-center w-full">International favorite</div>
                                 </div>
                                 <div class="card-back flex items-center justify-center p-4">
@@ -517,9 +562,23 @@
         <div class="paper" id="p1">
             <!-- P1 FRONT: COVER -->
             <div class="face front" style="background-color: var(--powder-blue);">
-                <div class="safe-content items-center justify-center border-4 border-white border-opacity-40 text-center">
+                <div class="safe-content items-center justify-center border-4 border-white border-opacity-40 text-center relative">
                     
-                    <div class="mb-5 z-10 w-full">
+                    <!-- Doodles & Embellishments on Cover -->
+                    <div class="absolute top-6 left-6 text-white opacity-60">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19c-1.5 0-2.5-1-2.5-2.5a2.5 2.5 0 1 0-5 0c0 1.5-1 2.5-2.5 2.5S5 18 5 16.5 6.5 14 8 14c1 0 1.5-.5 2-1.5a3.5 3.5 0 0 1 7 0c.5 1 1 1.5 2 1.5s2.5 1 2.5 2.5-1 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="absolute bottom-12 left-6 handwritten text-3xl text-white opacity-80 transform -rotate-12">★</div>
+                    <div class="absolute top-24 right-8 handwritten text-2xl text-blue-400 opacity-60 transform rotate-12">✦</div>
+                    <svg class="absolute bottom-[20%] right-[10%] w-8 h-8 text-white opacity-40 -rotate-12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                    <!-- New Zodiac Tag -->
+                    <div class="paper-scrap w-auto px-3 py-1.5 absolute top-[12%] left-[4%] transform -rotate-12 shadow-md z-20">
+                        <div class="tape -top-2 left-1/2 -translate-x-1/2 rotate-6 w-8" style="background: rgba(255, 182, 193, 0.7);"></div>
+                        <span class="handwritten text-sm font-bold text-gray-800">Zodiac: Gemini ♊</span>
+                    </div>
+
+                    <div class="mb-5 z-10 w-full mt-8">
                         <div class="typewriter text-[11px] tracking-[0.25em] text-blue-800 mb-1">FILE NO. 001</div>
                         <h1 class="text-[clamp(2.2rem,7vw,3.2rem)] font-black text-white tracking-widest drop-shadow-md mb-1 leading-none">AZURA BELL</h1>
                         <div class="handwritten text-xl text-blue-900 transform -rotate-2">an unofficial collection</div>
@@ -531,13 +590,7 @@
                         <div class="absolute -bottom-3 right-2 typewriter text-[9px] font-bold text-blue-900 bg-white px-2 py-0.5 transform rotate-3 border border-gray-200 shadow-sm">19 . 06</div>
                     </div>
 
-                    <div class="absolute top-8 left-8 text-white opacity-60">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19c-1.5 0-2.5-1-2.5-2.5a2.5 2.5 0 1 0-5 0c0 1.5-1 2.5-2.5 2.5S5 18 5 16.5 6.5 14 8 14c1 0 1.5-.5 2-1.5a3.5 3.5 0 0 1 7 0c.5 1 1 1.5 2 1.5s2.5 1 2.5 2.5-1 2.5-2.5 2.5z"/></svg>
-                    </div>
-                    <div class="absolute bottom-12 left-6 handwritten text-3xl text-white opacity-80 transform -rotate-12">★</div>
-                    <div class="absolute top-20 right-6 handwritten text-2xl text-blue-400 opacity-60 transform rotate-12">✦</div>
-
-                    <button onclick="nextPage(event)" class="z-20 bg-white text-blue-900 font-bold py-2.5 px-7 rounded shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 border border-gray-100 relative mx-auto">
+                    <button onclick="nextPage(event)" class="z-20 bg-white text-blue-900 font-bold py-2.5 px-7 rounded shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 border border-gray-100 relative mx-auto mt-2">
                         OPEN <span class="text-lg leading-none">→</span>
                     </button>
                 </div>
@@ -548,9 +601,14 @@
                 <div class="spine-shadow-back"></div>
                 <div class="safe-content justify-between py-5">
                     
-                    <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-blue-900 transform -rotate-2 text-center">okay, so... Azura.</h2>
+                    <!-- Background Doodles for About Page -->
+                    <div class="doodle top-[25%] right-[20%] handwritten text-xl text-pink-300 rotate-12">who is she?</div>
+                    <svg class="doodle bottom-[15%] right-[15%] w-10 h-10 text-yellow-400 opacity-40 rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    <svg class="doodle top-[55%] left-[10%] w-6 h-6 text-blue-400 opacity-50 -rotate-12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
 
-                    <div class="relative flex-1 w-full my-auto flex flex-col justify-center min-h-[300px]">
+                    <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] handwritten text-blue-900 transform -rotate-2 text-center z-10">okay, so... Azura.</h2>
+
+                    <div class="relative flex-1 w-full my-auto flex flex-col justify-center min-h-[300px] z-10">
                         
                         <!-- Name Tag -->
                         <div class="paper-scrap w-[56%] max-w-[180px] absolute top-[4%] left-[4%] transform rotate-1 fold-reveal z-10 shadow-sm p-2.5" onclick="this.classList.toggle('revealed')">
